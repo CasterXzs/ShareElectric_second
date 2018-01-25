@@ -22,6 +22,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xzs.shareelectric_second.R;
 import com.xzs.shareelectric_second.dialog.CustomProgressDialog;
 import com.xzs.shareelectric_second.entity.BaseEntity;
+import com.xzs.shareelectric_second.entity.UserEntity;
 import com.xzs.shareelectric_second.utils.Base64Util;
 import com.xzs.shareelectric_second.utils.Config;
 import com.xzs.shareelectric_second.utils.GsonUtil;
@@ -44,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private TextView register_tv_verifyingcode;//获取验证码
     private TimeCount timeCount;//验证码倒计时
     private Button register_btn_registe;//注册按钮
+    private static final String TAG = "RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
+        /*
         //验证短信验证码
         BmobSMS.verifySmsCode(this, phone, verifyingcode, new VerifySMSCodeListener() {
             @Override
@@ -138,11 +141,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
+        */
 
         //使用默认头像
         Bitmap decodeResource = BitmapFactory.decodeResource(this.getResources(), R.mipmap.register_icon);
         //将BitMap转换成Base64
         final String image = Base64Util.bitmapToBase64(decodeResource);
+        System.out.println("111+"+image);
 
         new Thread(new Runnable() {
             @Override
@@ -153,28 +158,32 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 params.addBodyParameter("username", username);
                 params.addBodyParameter("password", password);
                 params.addBodyParameter("phone", phone);
-                params.addBodyParameter("image", image);
+                //params.addBodyParameter("image", image);
                 httpUtils.send(HttpMethod.POST, Config.REGISTER, params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         //从服务器返回是否注册成功的信息
+
                         String json = responseInfo.result;
-                        BaseEntity baseEntity = GsonUtil.fromJson(json, BaseEntity.class);
+                        Log.d(TAG, "json: "+json);
+                        //BaseEntity baseEntity = GsonUtil.fromJson(json, BaseEntity.class);
+                        UserEntity userEntity=GsonUtil.fromJson(json,UserEntity.class);
                         if (customProgressDialog != null
                                 && customProgressDialog.isShowing()) {
                             customProgressDialog.dismiss();
                         }
 
-                        if (baseEntity.errcode == 0) {
+                        if (userEntity.errcode == 0) {
                             Toast.makeText(getApplicationContext(),
                                     "注册成功",
                                     Toast.LENGTH_LONG).show();
                             finish();//注册成功后关闭当前页面
                         } else {
                             Toast.makeText(getApplicationContext(),
-                                    "注册失败:" + baseEntity.errmsg,
+                                    "注册失败:" + userEntity.errmsg,
                                     Toast.LENGTH_LONG).show();
                         }
+
                     }
 
                     @Override

@@ -4,10 +4,10 @@ package com.xzs.shareelectric_second.utils;
 
 public class Config {
 
-    public static final String BASEHOST = "http://10.152.19.230:8080/ShareElectric_second";
+    public static final String BASEHOST = "http://snowleaf.xyz:8080/electric";
 
-    public static final String REGISTER = BASEHOST+"/mobile/UserServlet?method=register";
-    public static final String LOGIN = BASEHOST+"/User";
+    public static final String REGISTER = BASEHOST+"/UserAction_register";
+    public static final String LOGIN = BASEHOST+"/UserAction_login";
     public static final String SCORE = BASEHOST + "/mobile/UserServlet?method=getRelationScore";
     public static final String ADDFD = BASEHOST + "/mobile/UserServlet?method=addFriend";
     public static final String GETFD = BASEHOST + "/mobile/UserServlet?method=listFriend&uid=";

@@ -22,6 +22,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xzs.shareelectric_second.R;
+import com.xzs.shareelectric_second.application.MyApplication;
 import com.xzs.shareelectric_second.dialog.CustomProgressDialog;
 import com.xzs.shareelectric_second.entity.UserEntity;
 import com.xzs.shareelectric_second.utils.Config;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initView();
     }
 
-    //请假相关权限
+    //请求相关权限
     private void RequestPermissions(){
         if(ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
@@ -124,9 +125,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(LoginActivity.this, "输入不能为空!", Toast.LENGTH_SHORT).show();
             return;
         }
-        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        //startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
-        /*
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -135,16 +136,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("username", username);
                 params.addBodyParameter("password", password);
+                Log.d(TAG, "params: "+username+" "+password);
                 httpUtils.send(HttpMethod.POST, Config.LOGIN, params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-                        String json = responseInfo.result;
+
+                        String json = responseInfo.result.trim();
+                        Log.d(TAG, "json: "+json);
                         final UserEntity userEntity = GsonUtil.fromJson(json, UserEntity.class);
+                        Log.d(TAG, "userEntity getUid: "+userEntity.getUid());
+                        Log.d(TAG, "userEntity getUsername: "+userEntity.getUsername());
+                        Log.d(TAG, "userEntity getPassword: "+userEntity.getPassword());
+                        Log.d(TAG, "userEntity getBirthday: "+userEntity.getBirthday());
+                        Log.d(TAG, "userEntity getNickname: "+userEntity.getNickname());
+                        Log.d(TAG, "userEntity getHongbao: "+userEntity.getHongbao());
+                        Log.d(TAG, "userEntity getYouhuiquan: "+userEntity.getYouhuiquan());
+                        MyApplication.userEntity=userEntity;
                         if (userEntity.errcode == 0) {
-                            if (customProgressDialog != null
-                                    && customProgressDialog.isShowing()) {
-                                customProgressDialog.dismiss();
-                            }
+
                             Log.i(TAG, "onSuccess: "+json);
                             if (login_cb_rememberpassword.isChecked()) {
                                 SharedUtils.putName(getBaseContext(), username);
@@ -155,11 +164,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 SharedUtils.putPass(getBaseContext(), null);
                                 SharedUtils.putClick(getBaseContext(), false);
                             }
+                            if (customProgressDialog != null
+                                    && customProgressDialog.isShowing()) {
+                                customProgressDialog.dismiss();
+                            }
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }else {
                             Toast.makeText(getApplicationContext(),
-                                    "注册失败:" + userEntity.errmsg,
+                                    "登录失败:" + userEntity.errmsg,
                                     Toast.LENGTH_LONG).show();
+                            if (customProgressDialog != null
+                                    && customProgressDialog.isShowing()) {
+                                customProgressDialog.dismiss();
+                            }
                         }
                     }
 
@@ -168,6 +185,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Toast.makeText(getApplicationContext(),
                                 exception.getMessage() + " = " + msg,
                                 Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "onFailure: "+exception.getMessage());
                         if (customProgressDialog != null
                                 && customProgressDialog.isShowing()) {
                             customProgressDialog.dismiss();
@@ -179,6 +197,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         }).start();
-*/
+
     }
 }
