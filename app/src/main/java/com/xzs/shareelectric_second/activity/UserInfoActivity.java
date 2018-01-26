@@ -1,15 +1,20 @@
 package com.xzs.shareelectric_second.activity;
 
+import android.graphics.Point;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xzs.shareelectric_second.R;
 import com.xzs.shareelectric_second.application.MyApplication;
+import com.xzs.shareelectric_second.dialog.UserInfoDialog;
 import com.xzs.shareelectric_second.entity.UserEntity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,10 +65,15 @@ public class UserInfoActivity extends AppCompatActivity {
                 break;
             case R.id.userinfo_fixinfo:
                 Toast.makeText(this, "you clicked userinfo_fixinfo", Toast.LENGTH_SHORT).show();
+                UserInfoDialog dialog=new UserInfoDialog(UserInfoActivity.this);
+                dialog.show();
+                dialog.change();
+                break;
             default:
                 break;
         }
         return true;
     }
+
 
 }

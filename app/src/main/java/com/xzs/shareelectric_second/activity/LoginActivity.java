@@ -27,6 +27,7 @@ import com.xzs.shareelectric_second.dialog.CustomProgressDialog;
 import com.xzs.shareelectric_second.entity.UserEntity;
 import com.xzs.shareelectric_second.utils.Config;
 import com.xzs.shareelectric_second.utils.GsonUtil;
+import com.xzs.shareelectric_second.utils.JsonUtil;
 import com.xzs.shareelectric_second.utils.SharedUtils;
 
 import java.util.ArrayList;
@@ -143,14 +144,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         String json = responseInfo.result.trim();
                         Log.d(TAG, "json: "+json);
-                        final UserEntity userEntity = GsonUtil.fromJson(json, UserEntity.class);
-                        Log.d(TAG, "userEntity getUid: "+userEntity.getUid());
-                        Log.d(TAG, "userEntity getUsername: "+userEntity.getUsername());
-                        Log.d(TAG, "userEntity getPassword: "+userEntity.getPassword());
-                        Log.d(TAG, "userEntity getBirthday: "+userEntity.getBirthday());
-                        Log.d(TAG, "userEntity getNickname: "+userEntity.getNickname());
-                        Log.d(TAG, "userEntity getHongbao: "+userEntity.getHongbao());
-                        Log.d(TAG, "userEntity getYouhuiquan: "+userEntity.getYouhuiquan());
+                        String jsonString = JsonUtil.fromJson(json);
+                        Log.d(TAG, "jsonString: "+jsonString);
+                        final UserEntity userEntity = GsonUtil.fromJson(jsonString, UserEntity.class);
+
                         MyApplication.userEntity=userEntity;
                         if (userEntity.errcode == 0) {
 
