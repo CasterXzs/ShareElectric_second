@@ -11,7 +11,7 @@ public class Config {
     public static final String SCORE = BASEHOST + "/mobile/UserServlet?method=getRelationScore";
     public static final String ADDFD = BASEHOST + "/mobile/UserServlet?method=addFriend";
     public static final String GETFD = BASEHOST + "/mobile/UserServlet?method=listFriend&uid=";
-    public static final String UPDATA = BASEHOST + "/mobile/UserServlet?method=update";
+    public static final String UPDATA = BASEHOST + "/UserAction_updateUser.action";
 
     public static final String UPNEW = BASEHOST + "/mobile/AttachmentServlet?method=upload";
 
