@@ -1,37 +1,27 @@
 package com.xzs.shareelectric_second.dialog;
 
+
+
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xzs.shareelectric_second.R;
 
-import static android.R.attr.positiveButtonText;
 
 /**
  * Created by Lenovo on 2018/1/25.
  */
 
-public class UserInfoDialog extends Dialog{
+public class UserInfoDialog extends Dialog {
 
     private EditText userinfofix_et_nickname;
     private EditText userinfofix_et_birthday;
@@ -42,11 +32,12 @@ public class UserInfoDialog extends Dialog{
     private static final String TAG = "UserInfoDialog";
 
 
-    public UserInfoDialog(@NonNull Activity context) {
+    public UserInfoDialog(Activity context) {
         super(context);
         this.context=context;
-        init();
         setContentView(R.layout.activity_user_info_fix);
+        init();
+
 
     }
 
@@ -62,7 +53,7 @@ public class UserInfoDialog extends Dialog{
 
     private class MyOnCheckedChangeListener  implements RadioGroup.OnCheckedChangeListener{
         @Override
-        public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+        public void onCheckedChanged(RadioGroup radioGroup,  int i) {
             switch (radioGroup.getId()){
                 case R.id.userinfofix_rg_sex_male:
                     sex="男";
