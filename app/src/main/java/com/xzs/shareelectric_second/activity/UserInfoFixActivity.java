@@ -32,6 +32,8 @@ import com.xzs.shareelectric_second.entity.UserEntity;
 import com.xzs.shareelectric_second.utils.Config;
 import com.xzs.shareelectric_second.utils.GsonUtil;
 
+import java.net.URLEncoder;
+
 
 public class UserInfoFixActivity extends AppCompatActivity {
 
@@ -71,8 +73,8 @@ public class UserInfoFixActivity extends AppCompatActivity {
             switch (i){
                 case R.id.userinfofix_rg_sex_male:
                     try{
-                        String sex1="男";
-                        sex=new String(sex1.getBytes("iso8859-1"),"UTF-8");
+                        sex="男".toString();
+                        //sex=new String(sex1.getBytes("iso8859-1"),"UTF-8");
                     }catch(Exception e){
                         e.printStackTrace();
                     }
@@ -80,8 +82,8 @@ public class UserInfoFixActivity extends AppCompatActivity {
                     break;
                 case R.id.userinfofix_rg_sex_female:
                     try{
-                        String sex1="女";
-                        sex=new String(sex1.getBytes("iso8859-1"),"UTF-8");
+                        sex="女".toString();
+                        //String sex1=URLEncoder.encode(URLEncoder.encode(sex, "UTF-8"), "UTF-8");
                     }catch(Exception e){
                         e.printStackTrace();
                     }

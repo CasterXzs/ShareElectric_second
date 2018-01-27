@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
         user_tv_phone=headerView.findViewById(R.id.user_tv_phone);
         userheader_circleimageview=headerView.findViewById(R.id.userheader_circleimageview);
         userEntity= MyApplication.userEntity;
-        user_tv_phone.setText(hidePhone(userEntity.getPhone()));
+        user_tv_phone.setText(MyApplication.hidePhone(userEntity.getPhone()));
         userheader_circleimageview.setImageBitmap(Base64Util.base64ToBitmap(userEntity.getHeadImage()));
         userheader_circleimageview.setOnClickListener(new MyClickListener());
         main_fab_userinfo=(FloatingActionButton)findViewById(R.id.main_fab_userinfo);
@@ -299,10 +299,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private String hidePhone(String phone){
-        String phoneNumber = phone.substring(0, 3) + "****" + phone.substring(7, phone.length());
-        return phoneNumber;
-    }
+
 
 
     private class MyNavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener{

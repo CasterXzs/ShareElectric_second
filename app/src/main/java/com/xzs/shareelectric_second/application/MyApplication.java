@@ -23,4 +23,9 @@ public class MyApplication extends Application {
         myApplication = this;
         ZXingLibrary.initDisplayOpinion(this);
     }
+
+    public static String hidePhone(String phone){
+        String phoneNumber = phone.substring(0, 3) + "****" + phone.substring(7, phone.length());
+        return phoneNumber;
+    }
 }
