@@ -40,6 +40,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private TextView userinfo_tv_nickname;
     private TextView userinfo_tv_birthday;
     private TextView userinfo_tv_sex;
+    private TextView userinfo_tv_phone;
     private TextView userinfo_tv_qq;
     private TextView userinfo_tv_wx;
     private static final String TAG = "UserInfoActivity";
@@ -57,8 +58,11 @@ public class UserInfoActivity extends AppCompatActivity {
         userinfo_tb=(Toolbar)findViewById(R.id.userinfo_tb);
         setSupportActionBar(userinfo_tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        userinfo_circleimageview=(CircleImageView)findViewById(R.id.userinfo_circleimageview);
 
+        userinfo_tv_phone=(TextView)findViewById(R.id.userinfo_tv_phone);
+        userinfo_tv_phone.setText(MyApplication.hidePhone(userEntity.getPhone()));
+
+        userinfo_circleimageview=(CircleImageView)findViewById(R.id.userinfo_circleimageview);
         userinfo_circleimageview.setImageBitmap(Base64Util.base64ToBitmap(userEntity.getHeadImage()));
 
         userinfo_tv_nickname=(TextView)findViewById(R.id.userinfo_tv_nickname);
