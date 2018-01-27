@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +41,7 @@ import com.xzs.shareelectric_second.application.MyApplication;
 import com.xzs.shareelectric_second.entity.UserEntity;
 import com.xzs.shareelectric_second.overlay.WalkRouteOverlay;
 import com.xzs.shareelectric_second.utils.AMapUtil;
+import com.xzs.shareelectric_second.utils.Base64Util;
 import com.xzs.shareelectric_second.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -46,6 +50,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
 
+    private DrawerLayout main_dl;
     private NavigationView user_view;
     private View headerView;
     private ImageView userheader_circleimageview;
@@ -66,13 +71,14 @@ public class MainActivity extends AppCompatActivity{
     private Marker tempMark;
     private static final String TAG = "MainActivity";
 
+    private FloatingActionButton main_fab_userinfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
-        //requestPermissions();
+        requestPermissions();
         mapView= (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         initMap();
@@ -82,6 +88,8 @@ public class MainActivity extends AppCompatActivity{
         Marker marker1 = aMap.addMarker(new MarkerOptions().position(latLng1));
         LatLng latLng2 = new LatLng(29.664000,121.466400);
         Marker marker2 = aMap.addMarker(new MarkerOptions().position(latLng2));
+        LatLng latLng3 = new LatLng(29.891200,121.48120 );
+        Marker marker3 = aMap.addMarker(new MarkerOptions().position(latLng3));
 
     }
 
@@ -89,13 +97,14 @@ public class MainActivity extends AppCompatActivity{
         if(aMap==null){
             aMap = mapView.getMap();
         }
-        myLocationStyle=new MyLocationStyle();
+            myLocationStyle=new MyLocationStyle();
         myLocationStyle.showMyLocation(true);//设置是否显示定位小蓝点，用于满足只想使用定位，不想使用定位小蓝点的场景，设置false以后图面上不再有定位蓝点的概念，但是会持续回调位置信息。
         myLocationStyle.interval(2000);//设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);//连续定位、且将视角移动到地图中心点，地图依照设备方向旋转，定位点会跟随设备移动。（1秒1次定位）
         // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
-        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
+         //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
         // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);//连续定位、且将视角移动到地图中心点，地图依照设备方向旋转，定位点会跟随设备移动。（1秒1次定位）
+        //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，并且蓝点会跟随设备移动。
         myLocationStyle.showMyLocation(true);
         aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.moveCamera(CameraUpdateFactory.zoomTo(14));
@@ -107,6 +116,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void initView(){
+        main_dl=(DrawerLayout)findViewById(R.id.main_dl);
         user_view=(NavigationView)findViewById(R.id.user_view);
         user_view.setNavigationItemSelectedListener(new MyNavigationItemSelectedListener());
         headerView=user_view.getHeaderView(0);
@@ -114,9 +124,25 @@ public class MainActivity extends AppCompatActivity{
         userheader_circleimageview=headerView.findViewById(R.id.userheader_circleimageview);
         userEntity= MyApplication.userEntity;
         user_tv_phone.setText(hidePhone(userEntity.getPhone()));
+        userheader_circleimageview.setImageBitmap(Base64Util.base64ToBitmap(userEntity.getHeadImage()));
         userheader_circleimageview.setOnClickListener(new MyClickListener());
-
+        main_fab_userinfo=(FloatingActionButton)findViewById(R.id.main_fab_userinfo);
+        main_fab_userinfo.setOnClickListener(new MyOnClickListener());
     }
+
+    private class MyOnClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            switch(view.getId()){
+                case R.id.main_fab_userinfo:
+                    main_dl.openDrawer(GravityCompat.START);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private class MyMarkerClickListener implements AMap.OnMarkerClickListener{
         @Override
         public boolean onMarkerClick(Marker marker) {

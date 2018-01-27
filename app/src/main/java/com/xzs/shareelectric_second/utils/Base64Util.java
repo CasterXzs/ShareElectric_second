@@ -52,5 +52,7 @@ public class Base64Util {
 	public static Bitmap base64ToBitmap(String base64Data) {
 	    byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
 	    return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-	} 
+	}
+
+
 }

@@ -1,5 +1,7 @@
 package com.xzs.shareelectric_second.entity;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Lenovo on 2018/1/18.
  */
@@ -14,6 +16,24 @@ public class UserEntity extends BaseEntity{
     private String birthday;
     private String hongbao;
     private String youhuiquan;
+    private String sex;
+    private String headImage;
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getPhone() {
         return phone;

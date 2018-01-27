@@ -30,6 +30,7 @@ import com.xzs.shareelectric_second.utils.GsonUtil;
 import com.xzs.shareelectric_second.utils.JsonUtil;
 import com.xzs.shareelectric_second.utils.SharedUtils;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,10 +49,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        RequestPermissions();
+        //RequestPermissions();
         initView();
     }
 
+    /*
     //请求相关权限
     private void RequestPermissions(){
         if(ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -65,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             initView();
         }
     }
+    */
 
     private void initView(){
         login_edit_username=(EditText)findViewById(R.id.login_edit_username);
@@ -141,13 +144,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 httpUtils.send(HttpMethod.POST, Config.LOGIN, params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-
                         String json = responseInfo.result.trim();
                         Log.d(TAG, "json: "+json);
-                        String jsonString = JsonUtil.fromJson(json);
-                        Log.d(TAG, "jsonString: "+jsonString);
-                        final UserEntity userEntity = GsonUtil.fromJson(jsonString, UserEntity.class);
-
+                        //String jsonString = JsonUtil.fromJson(json);
+                       // Log.d(TAG, "jsonString: "+jsonString);
+                        final UserEntity userEntity = GsonUtil.fromJson(json, UserEntity.class);
+//                        String headImage=userEntity.getHeadImage().substring(22);
+                        Log.d(TAG, "userEntity.headImage: "+userEntity.getHeadImage());
+//                        Log.d(TAG, "headImage: "+headImage);
+//                        String headImage1=headImage.replace("\n","");
+//                        Log.d(TAG, "headImage1: "+headImage1);
+                        Log.d(TAG, "userEntity.username: "+userEntity.getUsername());
+//                        userEntity.setHeadImage(headImage1);
                         MyApplication.userEntity=userEntity;
                         if (userEntity.errcode == 0) {
 

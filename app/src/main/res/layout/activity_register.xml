@@ -52,8 +52,7 @@
             android:layout_marginTop="3dp"
             android:drawableLeft="@mipmap/register_edit_password2"
             android:drawablePadding="8dp"
-            android:hint="确认密码"
-            android:inputType="numberPassword" />
+            android:hint="确认密码"/>
 
         <EditText
             android:id="@+id/register_edit_phone"

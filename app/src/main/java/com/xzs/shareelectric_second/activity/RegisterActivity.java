@@ -158,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 params.addBodyParameter("username", username);
                 params.addBodyParameter("password", password);
                 params.addBodyParameter("phone", phone);
-                //params.addBodyParameter("image", image);
+                params.addBodyParameter("base64", image);
                 httpUtils.send(HttpMethod.POST, Config.REGISTER, params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -166,21 +166,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         String json = responseInfo.result;
                         Log.d(TAG, "json: "+json);
-                        //BaseEntity baseEntity = GsonUtil.fromJson(json, BaseEntity.class);
-                        UserEntity userEntity=GsonUtil.fromJson(json,UserEntity.class);
+                        BaseEntity baseEntity = GsonUtil.fromJson(json, BaseEntity.class);
+                        //UserEntity userEntity=GsonUtil.fromJson(json,UserEntity.class);
                         if (customProgressDialog != null
                                 && customProgressDialog.isShowing()) {
                             customProgressDialog.dismiss();
                         }
 
-                        if (userEntity.errcode == 0) {
+                        if (baseEntity.errcode == 0) {
                             Toast.makeText(getApplicationContext(),
                                     "注册成功",
                                     Toast.LENGTH_LONG).show();
                             finish();//注册成功后关闭当前页面
                         } else {
                             Toast.makeText(getApplicationContext(),
-                                    "注册失败:" + userEntity.errmsg,
+                                    "注册失败:" + baseEntity.errmsg,
                                     Toast.LENGTH_LONG).show();
                         }
 
