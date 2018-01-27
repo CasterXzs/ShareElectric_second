@@ -36,6 +36,7 @@ import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
+import com.github.shenyuanqing.zxingsimplify.zxing.Activity.CaptureActivity;
 import com.xzs.shareelectric_second.R;
 import com.xzs.shareelectric_second.application.MyApplication;
 import com.xzs.shareelectric_second.entity.UserEntity;
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
 
     private FloatingActionButton main_fab_userinfo;
+    private FloatingActionButton main_fab_message;
+    private FloatingActionButton main_fab_scan;
+
+    private static final int REQUEST_SCAN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +133,12 @@ public class MainActivity extends AppCompatActivity{
         userheader_circleimageview.setOnClickListener(new MyClickListener());
         main_fab_userinfo=(FloatingActionButton)findViewById(R.id.main_fab_userinfo);
         main_fab_userinfo.setOnClickListener(new MyOnClickListener());
+
+        main_fab_message=(FloatingActionButton)findViewById(R.id.main_fab_message);
+        main_fab_message.setOnClickListener(new MyOnClickListener());
+
+        main_fab_scan=(FloatingActionButton)findViewById(R.id.main_fab_scan);
+        main_fab_scan.setOnClickListener(new MyOnClickListener());
     }
 
     private class MyOnClickListener implements View.OnClickListener{
@@ -137,9 +148,27 @@ public class MainActivity extends AppCompatActivity{
                 case R.id.main_fab_userinfo:
                     main_dl.openDrawer(GravityCompat.START);
                     break;
+                case R.id.main_fab_message:
+                    startActivity(new Intent(MainActivity.this,MessageActivity.class));
+                    break;
+                case R.id.main_fab_scan:
+                    jumpScanPage();
+                    break;
                 default:
                     break;
             }
+        }
+    }
+
+    private void jumpScanPage() {
+        startActivityForResult(new Intent(MainActivity.this, CaptureActivity.class),REQUEST_SCAN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_SCAN && resultCode == RESULT_OK){
+            Toast.makeText(MainActivity.this,data.getStringExtra("barCode"),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -246,6 +275,10 @@ public class MainActivity extends AppCompatActivity{
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
             permissionLists.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.CAMERA)
+                !=PackageManager.PERMISSION_GRANTED){
+            permissionLists.add(Manifest.permission.CAMERA);
         }
         if(!permissionLists.isEmpty()){
             String[] permissions=permissionLists.toArray(new String[permissionLists.size()]);
