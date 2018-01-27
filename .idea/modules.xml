@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ShareElectric_second.iml" filepath="$PROJECT_DIR$/ShareElectric_second.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rvbanner/rvbanner.iml" filepath="$PROJECT_DIR$/rvbanner/rvbanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zxing-simplify/zxing-simplify.iml" filepath="$PROJECT_DIR$/zxing-simplify/zxing-simplify.iml" />
     </modules>
   </component>
 </project>
