@@ -1,10 +1,6 @@
 package com.xzs.shareelectric_second.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,10 +23,8 @@ import com.xzs.shareelectric_second.dialog.CustomProgressDialog;
 import com.xzs.shareelectric_second.entity.UserEntity;
 import com.xzs.shareelectric_second.utils.Config;
 import com.xzs.shareelectric_second.utils.GsonUtil;
-import com.xzs.shareelectric_second.utils.JsonUtil;
 import com.xzs.shareelectric_second.utils.SharedUtils;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 

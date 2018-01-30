@@ -8,7 +8,7 @@ public class Config {
 
     public static final String REGISTER = BASEHOST+"/UserAction_register";
     public static final String LOGIN = BASEHOST+"/UserAction_login.action";
-    public static final String SCORE = BASEHOST + "/mobile/UserServlet?method=getRelationScore";
+    public static final String MODIFYHEADIMAGE = BASEHOST + "/UserAction_modifyHeadImage.action";
     public static final String ADDFD = BASEHOST + "/mobile/UserServlet?method=addFriend";
     public static final String GETFD = BASEHOST + "/mobile/UserServlet?method=listFriend&uid=";
     public static final String UPDATA = BASEHOST + "/UserAction_updateUser.action";

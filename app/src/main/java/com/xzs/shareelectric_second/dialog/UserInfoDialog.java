@@ -50,8 +50,6 @@ public class UserInfoDialog extends Dialog {
         this.context=context;
         setContentView(R.layout.activity_user_info_fix);
         init();
-
-
     }
 
     private void init(){

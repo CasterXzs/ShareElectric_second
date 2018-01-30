@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/userwallet_cardview_bg"/>
+                android:src="@drawable/login_rl_bg"/>
 
             <TextView
                 android:id="@+id/userwallet_tv_restmoney"
